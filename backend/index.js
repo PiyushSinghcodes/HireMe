@@ -9,6 +9,7 @@ import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 import path from "path";
 
+const assessmentRoutes = require('./routes/assessmentRoutes');
 dotenv.config({});
 
 const app = express();
@@ -33,7 +34,7 @@ app.use("/api/v1/user", userRoute);
 app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
 app.use("/api/v1/application", applicationRoute);
-
+app.use('/api/assessments', assessmentRoutes);
 
 app.use(express.static(path.join(_dirname,"/frontend/dist")));
 app.get('*',(req,res)=>{
