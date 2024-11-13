@@ -1,6 +1,6 @@
 import { Router } from 'express';
 const router = Router();
-import { createAssessment, updateAssessment, getAssessmentByJobId } from '../controllers/assessmentController';
+import { createAssessment, updateAssessment, getAssessmentByJobId } from '../controllers/assessmentController.js';
 
 // Route to create a new assessment
 router.post('/', createAssessment);
