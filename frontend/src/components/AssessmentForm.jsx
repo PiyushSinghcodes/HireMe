@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
-import { Select, SelectItem } from './ui/select';
+import { Select, SelectItem, SelectContent, SelectTrigger, SelectValue } from './ui/select'; // Ensure SelectContent and SelectTrigger are imported
 import { useSelector } from 'react-redux';
 import { toast } from 'sonner';
 import axios from 'axios';
@@ -14,7 +14,6 @@ const AssessmentForm = () => {
     { questionText: '', options: ['', '', '', ''], correctAnswer: 0 },
   ]);
 
-  // Fetch jobs from the backend
   useEffect(() => {
     axios.get('/api/jobs')
       .then(response => setJobs(response.data))
@@ -57,10 +56,14 @@ const AssessmentForm = () => {
       <div>
         <Label>Select Job</Label>
         <Select value={selectedJob} onChange={handleJobChange} required>
-          <SelectItem value="">Select a job</SelectItem>
-          {jobs.map(job => (
-            <SelectItem key={job._id} value={job._id}>{job.title}</SelectItem>
-          ))}
+          <SelectTrigger>
+            <SelectValue placeholder="Select a job" />
+          </SelectTrigger>
+          <SelectContent>
+            {jobs.map((job) => (
+              <SelectItem key={job._id} value={job._id}>{job.title}</SelectItem>
+            ))}
+          </SelectContent>
         </Select>
       </div>
       <div>
