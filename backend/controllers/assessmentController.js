@@ -1,4 +1,7 @@
-import Assessment, { findOne, findByIdAndUpdate } from '../models/Assessment.js';
+import Assessment from '../models/Assessment.js'; // Remove `{ findOne, findByIdAndUpdate }`
+const existingAssessment = await Assessment.findOne({ jobId });
+const assessment = await Assessment.findByIdAndUpdate(id, { questions }, { new: true, runValidators: true });
+
 
 // Create a new assessment
 export async function createAssessment(req, res) {
