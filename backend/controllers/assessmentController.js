@@ -1,12 +1,12 @@
-const Assessment = require('../models/Assessment');
+import Assessment, { findOne, findByIdAndUpdate } from '../models/Assessment.js';
 
 // Create a new assessment
-exports.createAssessment = async (req, res) => {
+export async function createAssessment(req, res) {
   const { jobId, questions } = req.body;
 
   try {
     // Check if an assessment already exists for the job
-    const existingAssessment = await Assessment.findOne({ jobId });
+    const existingAssessment = await findOne({ jobId });
     if (existingAssessment) {
       return res.status(400).json({ message: 'Assessment for this job already exists.' });
     }
@@ -17,15 +17,15 @@ exports.createAssessment = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+}
 
 // Update an existing assessment
-exports.updateAssessment = async (req, res) => {
+export async function updateAssessment(req, res) {
   const { id } = req.params;
   const { questions } = req.body;
 
   try {
-    const assessment = await Assessment.findByIdAndUpdate(
+    const assessment = await findByIdAndUpdate(
       id,
       { questions },
       { new: true, runValidators: true }
@@ -37,14 +37,14 @@ exports.updateAssessment = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+}
 
 // Get an assessment by jobId
-exports.getAssessmentByJobId = async (req, res) => {
+export async function getAssessmentByJobId(req, res) {
   const { jobId } = req.params;
 
   try {
-    const assessment = await Assessment.findOne({ jobId });
+    const assessment = await findOne({ jobId });
     if (!assessment) {
       return res.status(404).json({ message: 'Assessment not found.' });
     }
@@ -52,4 +52,4 @@ exports.getAssessmentByJobId = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
+}

@@ -1,14 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const assessmentController = require('../controllers/assessmentController');
+import { Router } from 'express';
+const router = Router();
+import { createAssessment, updateAssessment, getAssessmentByJobId } from '../controllers/assessmentController';
 
 // Route to create a new assessment
-router.post('/', assessmentController.createAssessment);
+router.post('/', createAssessment);
 
 // Route to update an existing assessment
-router.put('/:id', assessmentController.updateAssessment);
+router.put('/:id', updateAssessment);
 
 // Route to get an assessment by jobId
-router.get('/:jobId', assessmentController.getAssessmentByJobId);
+router.get('/:jobId', getAssessmentByJobId);
 
-module.exports = router;
+export default router;
