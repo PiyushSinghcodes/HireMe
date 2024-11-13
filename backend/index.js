@@ -8,8 +8,7 @@ import companyRoute from "./routes/company.route.js";
 import jobRoute from "./routes/job.route.js";
 import applicationRoute from "./routes/application.route.js";
 import path from "path";
-
-const assessmentRoutes = require('./routes/assessmentRoutes');
+import assessmentRoutes from './routes/assessmentRoutes.js';
 dotenv.config({});
 
 const app = express();
