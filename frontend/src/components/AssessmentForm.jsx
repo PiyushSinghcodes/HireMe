@@ -13,11 +13,19 @@ const AssessmentForm = () => {
   const [questions, setQuestions] = useState([
     { questionText: '', options: ['', '', '', ''], correctAnswer: 0 },
   ]);
+  const [loading, setLoading] = useState(true); // Loading state
 
+  // Fetch jobs from the backend
   useEffect(() => {
     axios.get('/api/jobs')
-      .then(response => setJobs(response.data))
-      .catch(error => console.error('Error fetching jobs:', error));
+      .then(response => {
+        setJobs(response.data);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error('Error fetching jobs:', error);
+        setLoading(false); // Stop loading in case of error
+      });
   }, []);
 
   const handleJobChange = (e) => {
@@ -60,12 +68,19 @@ const AssessmentForm = () => {
             <SelectValue placeholder="Select a job" />
           </SelectTrigger>
           <SelectContent>
-            {jobs.map((job) => (
-              <SelectItem key={job._id} value={job._id}>{job.title}</SelectItem>
-            ))}
+            {loading ? (
+              <SelectItem disabled>Loading jobs...</SelectItem>
+            ) : Array.isArray(jobs) && jobs.length > 0 ? (
+              jobs.map((job) => (
+                <SelectItem key={job._id} value={job._id}>{job.title}</SelectItem>
+              ))
+            ) : (
+              <SelectItem disabled>No jobs available</SelectItem>
+            )}
           </SelectContent>
         </Select>
       </div>
+
       <div>
         {questions.map((q, index) => (
           <div key={index} className="space-y-2">
@@ -101,6 +116,7 @@ const AssessmentForm = () => {
           </div>
         ))}
       </div>
+
       <Button type="button" onClick={addQuestion} className="mt-4">Add Question</Button>
       <Button type="submit" className="mt-4">Save Assessment</Button>
     </form>
