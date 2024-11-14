@@ -56,7 +56,7 @@ To run the project locally, follow these steps:
 - **Recruiters**: Post job openings and manage applications.
 
 ## Technologies Used
-- **Frontend**: React, Bootstrap/Tailwind CSS (choose based on your final setup)
+- **Frontend**: React,Tailwind CSS
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB
 - **Authentication**: JWT
